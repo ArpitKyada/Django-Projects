@@ -1,0 +1,76 @@
+{% extends 'apps/base.htm' %}
+
+{% block body %}
+<div class="container">
+    <div class="row my-5">
+        <div class="col-md-4">
+            <a href="{% url 'create_desktop' %}" class="btn btn-lg btn-success">Create New Desktop</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'create_laptop' %}" class="btn btn-lg btn-success">Create New Laptop</a>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'create_mobile' %}" class="btn btn-lg btn-success">Create New Mobile</a>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <h3 class="text-info">{{header}}</h3>
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Condition</th>
+            <th scope="col">Issuse</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for form in form %}
+          <tr>
+            <th scope="row">{{form.name}}</th>
+            <td>{{form.price}}</td>
+            <td>{{form.condition}}</td>
+            <td>{{form.issues}}</td>
+            {% if header == "Desktop" %}
+              <td><a href="{% url 'update_desktop' form.id %}"><i class="fas fa-user-edit"></i></a></td>
+              <td><a href="{% url  'delete_desktop' form.id %}"><i class="fas fa-trash-alt"></i></a></td>
+            {% elif header == "Laptop" %}
+            <td><a href="{% url 'update_laptop' form.id %}"><i class="fas fa-user-edit"></i></a></td>
+            <td><a href="{% url  'delete_laptop' form.id %}"><i class="fas fa-trash-alt"></i></a></td>
+            {% else %}
+            <td><a href="{% url 'update_mobile' form.id %}"><i class="fas fa-user-edit"></i></a></td>
+            <td><a href="{% url  'delete_mobile' form.id %}"><i class="fas fa-trash-alt"></i></a></td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+          {% for form in a %}
+          <tr>
+            <th scope="row">{{form.name}}</th>
+            <td>{{form.price}}</td>
+            <td>{{form.condition}}</td>
+            <td>{{form.issues}}</td>
+          </tr>
+          {% endfor %}
+          {% for form in b %}
+          <tr>
+            <th scope="row">{{form.name}}</th>
+            <td>{{form.price}}</td>
+            <td>{{form.condition}}</td>
+            <td>{{form.issues}}</td>
+          </tr>
+          {% endfor %}
+          {% for form in c %}
+          <tr>
+            <th scope="row">{{form.name}}</th>
+            <td>{{form.price}}</td>
+            <td>{{form.condition}}</td>
+            <td>{{form.issues}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock %}
