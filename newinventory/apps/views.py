@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import *
 from .forms import *
-# Create your views here.
+
 
 def index(request):
     a = Desktop.objects.all()
@@ -10,7 +10,7 @@ def index(request):
     c = Mobile.objects.all()
     
     context = {'a':a, 'b':b, 'c':c}
-    return render(request, 'apps/index.htm', context)
+    return render(request, 'apps/index.html', context)
 
 
 def show_Device(request, cls, header):
@@ -19,7 +19,7 @@ def show_Device(request, cls, header):
     context={'form':form,
             'header' : header
         }
-    return render(request, 'apps/index.htm', context)
+    return render(request, 'apps/index.html', context)
 
 def show_desktop(request):
     return show_Device(request, Desktop, 'Desktop')
@@ -39,7 +39,7 @@ def create_device(request, cls):
             form.save()
         return redirect('home')
     context = {'form':form}
-    return render(request, 'apps/create_item.htm', context)
+    return render(request, 'apps/create_item.html', context)
 
 def create_desktop(request):
     return create_device(request, DesktopForm)
@@ -52,8 +52,9 @@ def create_mobile(request):
 
 
 def update_device(request, id, cls, clsform):
+    newID = id
     if request.method == "GET":
-        obj = cls.objects.get(pk=id)
+        obj = cls.objects.get(pk=newID)
         form = clsform(instance=obj)
     else:
         obj = cls.objects.get(pk=id)
